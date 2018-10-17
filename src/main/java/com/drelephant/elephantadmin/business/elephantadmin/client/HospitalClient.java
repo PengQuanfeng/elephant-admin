@@ -3,6 +3,9 @@ package com.drelephant.elephantadmin.business.elephantadmin.client;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.codehaus.jettison.json.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +35,7 @@ public class HospitalClient {
         	String value = mapper.writeValueAsString(params);
         	HttpEntity<String> requestEntity = new HttpEntity<String>(value, headers);
 
-        	String url = "http://basedata/bdOrg/deleteOneHosStatus";
+        	String url = "http://basedata1/bdOrg/deleteOneHosStatus";
     		if (logger.isDebugEnabled()) {
     			logger.debug("调用接口: " + url + ", 提交的参数: " + params);
     		}
@@ -40,7 +43,16 @@ public class HospitalClient {
     		if (logger.isDebugEnabled()) {
     			logger.debug("接口返回值: " + returnedValues);
     		}
-    		return "true".equalsIgnoreCase(returnedValues);
+    		if (StringUtils.isNotBlank(returnedValues)) {
+    			JSONObject json = new JSONObject(returnedValues);
+    			if (json.getInt("code") == 0) {
+    				return true;
+    			} else {
+    				return false;
+    			}
+    		} else {
+    			return false;
+    		}
     	} catch (Exception e) {
     		throw new RuntimeException(e);
     	}
