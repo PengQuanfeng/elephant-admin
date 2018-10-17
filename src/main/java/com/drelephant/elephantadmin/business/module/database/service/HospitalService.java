@@ -1,4 +1,4 @@
-package com.drelephant.elephantadmin.business.elephantadmin.service;
+package com.drelephant.elephantadmin.business.module.database.service;
 
 import com.drelephant.framework.base.common.R;
 

@@ -1,4 +1,4 @@
-package com.drelephant.elephantadmin.business.elephantadmin.controller;
+package com.drelephant.elephantadmin.business.module.database.controller;
 
 
 import java.util.Map;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.drelephant.elephantadmin.business.elephantadmin.controller.base.BaseController;
-import com.drelephant.elephantadmin.business.elephantadmin.service.HospitalService;
+import com.drelephant.elephantadmin.business.module.base.BaseController;
+import com.drelephant.elephantadmin.business.module.database.service.HospitalService;
 import com.drelephant.framework.base.common.R;
 
 import io.swagger.annotations.Api;

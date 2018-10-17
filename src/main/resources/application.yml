@@ -1,7 +1,7 @@
 server:
   port: 8201
 swagger:
-  base-package: com.drelephant.elephantadmin.business.elephantadmin.controller
+  base-package: com.drelephant.elephantadmin.business.module
 spring:
   application:
     name: elephant-admin

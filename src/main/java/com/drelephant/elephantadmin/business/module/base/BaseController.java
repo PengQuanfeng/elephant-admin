@@ -1,4 +1,4 @@
-package com.drelephant.elephantadmin.business.elephantadmin.controller.base;
+package com.drelephant.elephantadmin.business.module.base;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
