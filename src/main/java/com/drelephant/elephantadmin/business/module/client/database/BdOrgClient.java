@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import club.zhcs.common.Result;
 
-@FeignClient("basedata1")
+@FeignClient("basedata")
 public interface BdOrgClient {
 	
 	@RequestMapping(
