@@ -26,7 +26,6 @@ public class HospitalServiceImpl implements HospitalService {
 	BdOrgClient bdOrgClient;
 	
 	@Override
-//	@Transactional
 	public R deleteHospital(String orgCode) {
 		Map<String, String> map1 = new HashMap<String, String>();
 		map1.put("orgCode", orgCode);
@@ -55,6 +54,24 @@ public class HospitalServiceImpl implements HospitalService {
 			}
 		} else {
 			return R.error("不允许删除医院，医院下面有医生信息");
+		}
+	}
+	
+	@Override
+	public R checkDoctors(String orgCode) {
+		Map<String, String> map1 = new HashMap<String, String>();
+		map1.put("orgCode", orgCode);
+		if (logger.isDebugEnabled()) {
+			logger.debug(map1);
+		}
+		boolean r1 = doctorInfoClient.checkDoctors(map1);
+		if (logger.isDebugEnabled()) {
+			logger.debug(r1);
+		}
+		if (r1) {
+			return R.ok("医院下面有医生信息");
+		} else {
+			return R.error(1, "医院下面没有医生信息");
 		}
 		
 	}
