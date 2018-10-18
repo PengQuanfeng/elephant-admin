@@ -4,6 +4,7 @@ import com.drelephant.elephantadmin.business.module.doctor.util.DoctorInfoVo;
 import com.drelephant.framework.base.common.R;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
 
 /**
  * @author hanyf
@@ -21,11 +22,16 @@ public interface DoctorService {
     R pageDoctorLinkedStore(String doctorCode, Integer current, Integer pageSize);
 
     /**
-     *
      * @param doctorInfoVo
      * @return
      */
     R updateDoctorInfo(@Nonnull DoctorInfoVo doctorInfoVo);
+
+    /**
+     * @param map
+     * @return
+     */
+    R addDoctor(@Nonnull Map<String, String> map);
 
 }
 

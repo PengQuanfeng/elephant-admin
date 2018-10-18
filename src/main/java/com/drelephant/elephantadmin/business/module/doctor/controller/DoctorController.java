@@ -10,11 +10,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 /**
  * <p>
@@ -83,4 +84,20 @@ public class DoctorController extends BaseController {
         return doctorService.updateDoctorInfo(doctorInfoVo);
     }
 
+    /**
+     * 新增医生, 并新增账号.新增医生基本信息
+     *
+     * @param data
+     * @return
+     */
+    @PostMapping("/addDoctorAccount")
+    public R addDoctor(@RequestBody Map<String, String> data) {
+        val phoneNumber = data.get("phoneNumber");
+        val password = data.get("password");
+        // 3,  recommendUserId
+        if (DUtil.isAnyBlank(phoneNumber, password)) {
+            return R.error("有参数为空" + data.toString());
+        }
+        return doctorService.addDoctor(data);
+    }
 }

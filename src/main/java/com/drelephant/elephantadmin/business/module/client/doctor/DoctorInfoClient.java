@@ -34,10 +34,27 @@ public interface DoctorInfoClient {
     List<String> listDoctorUnLinkedStoreCode(@RequestParam("doctorCode") String doctorCode);
 
     /**
-     *updateDocInfoApi
+     * updateDocInfoApi
+     *
      * @param data
      * @return
      */
     @PostMapping("/doctorInfo/update")
     R updateDocInfoApi(@RequestBody DoctorInfoVo data);
+
+
+    /**
+     * 新增医生, for web管理,
+     * 业务调用,不通用.
+     * doctorCode,
+     * recommendUserId
+     * registerSourceCode
+     * registerSourceName
+     * registerTime
+     *
+     * @param data
+     * @return
+     */
+    @PostMapping("/doctorInfo/addDoctorApi")
+    R addDoctorApi(@RequestBody Map<String, String> data);
 }

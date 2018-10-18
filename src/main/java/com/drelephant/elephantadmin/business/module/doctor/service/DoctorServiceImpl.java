@@ -8,13 +8,18 @@ import com.drelephant.elephantadmin.business.module.doctor.util.DUtil;
 import com.drelephant.elephantadmin.business.module.doctor.util.Dictionary;
 import com.drelephant.elephantadmin.business.module.doctor.util.DoctorInfoVo;
 import com.drelephant.framework.base.common.R;
+import lombok.val;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hanyf
@@ -61,12 +66,45 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorInfoClient.updateDocInfoApi(doctorInfoVo);
     }
 
+    @Override
+    public R addDoctor(@Nonnull Map<String, String> map) {
+        //
+        final String phoneNumber = map.get("phoneNumber");
+        final String password = map.get("password");
+        final String recommendUserId = map.get("recommendUserId");
+
+        //1. 账号新增 //todo 还没有注册接口.
+        val now = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+        val isAuthOk = true;
+        if (!isAuthOk) {
+            return R.error("账号注册失败-TODO-待开发");
+        }
+        //2.获取到专属code.
+        val doctorCode = phoneNumber;
+        //3.插入医生
+        Map<String, String> docMap = new HashMap<>();
+        docMap.put("doctorCode", doctorCode);
+        docMap.put("recommendUserId", "");
+        docMap.put("registerSourceCode", "WEBH5");
+        docMap.put("registerSourceName", "网页H5");
+        docMap.put("registerTime", now);
+        final R doctorApiR = doctorInfoClient.addDoctorApi(docMap);
+        //4 成功, 返回即可
+        if (DUtil.isOk(doctorApiR)) {
+            return doctorApiR;
+        } else {
+            //5 失败的话 ,回滚账号.
+            return R.error("医生信息插入失败, 回滚账号系统-开发中");
+        }
+    }
+
     /**
      * 根据字典
+     *
      * @param dicCode
      * @return
      */
-    public  String getName(@Nullable String dicCode) {
+    public String getName(@Nullable String dicCode) {
         if (StringUtils.isBlank(dicCode)) {
             return "";
         }
