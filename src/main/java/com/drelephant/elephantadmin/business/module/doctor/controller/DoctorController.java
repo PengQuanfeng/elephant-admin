@@ -3,12 +3,18 @@ package com.drelephant.elephantadmin.business.module.doctor.controller;
 
 import com.drelephant.elephantadmin.business.module.base.BaseController;
 import com.drelephant.elephantadmin.business.module.doctor.service.DoctorService;
+import com.drelephant.elephantadmin.business.module.doctor.util.DUtil;
+import com.drelephant.elephantadmin.business.module.doctor.util.DoctorInfoVo;
 import com.drelephant.framework.base.common.R;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -20,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "医生")
 @RestController
-@RequestMapping("/admin/doctor")
+@RequestMapping("/doctor")
 public class DoctorController extends BaseController {
 
     @Autowired
@@ -28,7 +34,6 @@ public class DoctorController extends BaseController {
 
     /**
      * 获取医生未关联门店列表,分页.
-     *
      *
      * @param doctorCode
      * @param current
@@ -38,6 +43,44 @@ public class DoctorController extends BaseController {
     @GetMapping("/pageDoctorLinkedStore")
     public R pageDoctorLinkedStore(String doctorCode, Integer current, Integer pageSize) {
         return doctorService.pageDoctorLinkedStore(doctorCode, current, pageSize);
+    }
+
+    /**
+     * 更新保存医生基本信息.
+     *
+     * @param doctorInfoVo
+     * @return
+     */
+    @ApiOperation("后台-更新保存医生基本信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "doctorCode", value = "账号", required = true),
+            @ApiImplicitParam(name = "doctorName", value = "姓名", required = true),
+            @ApiImplicitParam(name = "sex", value = "性别", required = true),
+            @ApiImplicitParam(name = "idCardCode", value = "身份证号", required = true),
+
+            @ApiImplicitParam(name = "provinceCode", value = "省编码", required = true),
+            @ApiImplicitParam(name = "provinceName", value = "省名称", required = true),
+            @ApiImplicitParam(name = "cityCode", value = "市编码", required = true),
+            @ApiImplicitParam(name = "cityName", value = "市名称", required = true),
+            @ApiImplicitParam(name = "orgCode", value = "医院编码", required = true),
+            @ApiImplicitParam(name = "orgName", value = "医院名称", required = true),
+            @ApiImplicitParam(name = "deptCode", value = "科室编码", required = true),
+            @ApiImplicitParam(name = "deptName", value = "科室名称", required = true),
+            @ApiImplicitParam(name = "doctorTitleCode", value = "职称编码", required = true),
+            @ApiImplicitParam(name = "doctorTitleName", value = "职称名称", required = true),
+
+            @ApiImplicitParam(name = "briefIntroduction", value = "简介", required = true),
+            @ApiImplicitParam(name = "goodAt", value = "擅长", required = true),
+            @ApiImplicitParam(name = "bankName", value = "开户行名称", required = true),
+            @ApiImplicitParam(name = "bankCardCode", value = "银行卡号", required = true),
+            @ApiImplicitParam(name = "bankProvinceCode", value = "开户行省编码", required = true),
+            @ApiImplicitParam(name = "bankProvinceName", value = "开户行省名称", required = true),
+            @ApiImplicitParam(name = "bankCityCode", value = "开户行城市编码", required = true),
+            @ApiImplicitParam(name = "bankCityName", value = "开户行城市名称", required = true),
+    })
+    @PostMapping("/update")
+    public R update(@RequestBody @Valid DoctorInfoVo doctorInfoVo) {
+        return doctorService.updateDoctorInfo(doctorInfoVo);
     }
 
 }

@@ -1,6 +1,9 @@
 package com.drelephant.elephantadmin.business.module.doctor.service;
 
+import com.drelephant.elephantadmin.business.module.doctor.util.DoctorInfoVo;
 import com.drelephant.framework.base.common.R;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author hanyf
@@ -17,6 +20,12 @@ public interface DoctorService {
      */
     R pageDoctorLinkedStore(String doctorCode, Integer current, Integer pageSize);
 
+    /**
+     *
+     * @param doctorInfoVo
+     * @return
+     */
+    R updateDoctorInfo(@Nonnull DoctorInfoVo doctorInfoVo);
 
 }
 

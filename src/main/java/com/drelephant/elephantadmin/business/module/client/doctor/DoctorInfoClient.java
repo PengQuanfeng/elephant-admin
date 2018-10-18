@@ -1,11 +1,10 @@
 package com.drelephant.elephantadmin.business.module.client.doctor;
 
+import com.drelephant.elephantadmin.business.module.doctor.util.DoctorInfoVo;
+import com.drelephant.framework.base.common.R;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -33,4 +32,12 @@ public interface DoctorInfoClient {
      */
     @GetMapping("/doctorStoreConfig/listDoctorUnLinkedStoreCode")
     List<String> listDoctorUnLinkedStoreCode(@RequestParam("doctorCode") String doctorCode);
+
+    /**
+     *updateDocInfoApi
+     * @param data
+     * @return
+     */
+    @PostMapping("/doctorInfo/update")
+    R updateDocInfoApi(@RequestBody DoctorInfoVo data);
 }
