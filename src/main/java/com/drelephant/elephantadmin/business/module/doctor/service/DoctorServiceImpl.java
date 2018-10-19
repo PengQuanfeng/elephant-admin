@@ -72,6 +72,9 @@ public class DoctorServiceImpl implements DoctorService {
         final String phoneNumber = map.get("phoneNumber");
         final String password = map.get("password");
         final String recommendUserId = map.get("recommendUserId");
+        if (StringUtils.length(recommendUserId) > 32) {
+            return R.error("推荐人ID不合法");
+        }
 
         //1. 账号新增 //todo 还没有注册接口.
         val now = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());

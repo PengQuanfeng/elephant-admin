@@ -1,9 +1,10 @@
 package com.drelephant.elephantadmin.business.module.patient.controller;
 
-import com.drelephant.elephantadmin.business.module.doctor.util.DUtil;
 import com.drelephant.elephantadmin.business.module.patient.service.PatientService;
 import com.drelephant.framework.base.common.R;
-import lombok.val;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,13 +24,21 @@ public class PatientController {
     private PatientService patientService;
 
     /**
-     * @param data
-     * @return
+     * 患者注册.
+     *
+     *
+     * @param data data
+     * @return R
      */
-    @PostMapping("/addPattientAccount")
-    public R regPatientForWeb(@RequestBody Map<String, String> data) {
-
-        return null;
+    @ApiOperation("后台-新增用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "phoneNumber", value = "phoneNumber", required = true),
+            @ApiImplicitParam(name = "password", value = "password", required = true),
+            @ApiImplicitParam(name = "storeCode", value = "storeCode"),
+    })
+    @PostMapping("/addPatientAccount")
+    public R addPatientAccountForWeb(@RequestBody Map<String, String> data) {
+        return patientService.regPatientForWeb(data);
     }
 
 
