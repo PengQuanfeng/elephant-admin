@@ -6,10 +6,7 @@ import com.drelephant.elephantadmin.business.module.doctor.service.DoctorService
 import com.drelephant.elephantadmin.business.module.doctor.util.DUtil;
 import com.drelephant.elephantadmin.business.module.doctor.util.DoctorInfoVo;
 import com.drelephant.framework.base.common.R;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,23 +31,24 @@ public class DoctorController extends BaseController {
     private DoctorService doctorService;
 
     /**
-     * 获取医生未关联门店列表,分页.
+     * 分页获取医生关联门店列表,分页.
      *
-     * @param doctorCode
-     * @param current
-     * @param pageSize
-     * @return
+     * @param doctorCode doctorCode
+     * @param current    current
+     * @param pageSize   pageSize
+     * @return R
      */
+    @ApiOperation("分页获取医生关联门店列表")
     @GetMapping("/pageDoctorLinkedStore")
-    public R pageDoctorLinkedStore(String doctorCode, Integer current, Integer pageSize) {
+    public R pageDoctorLinkedStore(@ApiParam("医生账号") String doctorCode, Integer current, Integer pageSize) {
         return doctorService.pageDoctorLinkedStore(doctorCode, current, pageSize);
     }
 
     /**
      * 更新保存医生基本信息.
      *
-     * @param doctorInfoVo
-     * @return
+     * @param doctorInfoVo doctorInfoVo
+     * @return R
      */
     @ApiOperation("后台-更新保存医生基本信息")
     @ApiImplicitParams({
@@ -87,9 +85,15 @@ public class DoctorController extends BaseController {
     /**
      * 新增医生, 并新增账号.新增医生基本信息
      *
-     * @param data
-     * @return
+     * @param data data
+     * @return R
      */
+    @ApiOperation("后台-新增医生")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "phoneNumber", value = "手机号码", required = true),
+            @ApiImplicitParam(name = "password", value = "密码", required = true),
+            @ApiImplicitParam(name = "recommendUserId", value = "推荐人ID"),
+    })
     @PostMapping("/addDoctorAccount")
     public R addDoctor(@RequestBody Map<String, String> data) {
         val phoneNumber = data.get("phoneNumber");
@@ -100,4 +104,5 @@ public class DoctorController extends BaseController {
         }
         return doctorService.addDoctor(data);
     }
+
 }

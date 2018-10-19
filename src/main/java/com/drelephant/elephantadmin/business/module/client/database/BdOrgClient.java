@@ -51,4 +51,14 @@ public interface BdOrgClient {
     @GetMapping("/bdDictValue/listByParentCodeApi")
     List<Dictionary> listDicByParentCodeApi(@RequestParam("parentCode") String parentCode);
 
+    /**
+     * api- codeStr
+     * get请求, 注意数据长度.
+     *
+     * @param codeStr like 1,2,3
+     * @return map ,like {a:哎,b:比}
+     */
+    @GetMapping("/bdDictValue/mapCodeNameByCodesApi")
+    Map<String, String> mapCodeNameByCodesApi(@RequestParam("codeStr") String codeStr);
+
 }

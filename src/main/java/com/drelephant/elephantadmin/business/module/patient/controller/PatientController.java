@@ -26,7 +26,6 @@ public class PatientController {
     /**
      * 患者注册.
      *
-     *
      * @param data data
      * @return R
      */
@@ -35,6 +34,7 @@ public class PatientController {
             @ApiImplicitParam(name = "phoneNumber", value = "phoneNumber", required = true),
             @ApiImplicitParam(name = "password", value = "password", required = true),
             @ApiImplicitParam(name = "storeCode", value = "storeCode"),
+            @ApiImplicitParam(name = "storeName", value = "storeName"),
     })
     @PostMapping("/addPatientAccount")
     public R addPatientAccountForWeb(@RequestBody Map<String, String> data) {

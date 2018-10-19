@@ -27,12 +27,16 @@ public class PatientServiceImpl implements PatientService {
         val phoneNumber = data.get("phoneNumber");
         val password = data.get("password");
         val storeCode = data.get("storeCode");
+        val storeName = data.get("storeName");
 
         if (DUtil.isAnyBlank(password, phoneNumber)) {
             return R.error("手机号或密码无效");
         }
-        if (StringUtils.length(phoneNumber) > 12) {
+        if (StringUtils.length(phoneNumber) > 16) {
             return R.error("手机号码太长");
+        }
+        if (StringUtils.isNotBlank(storeCode) && StringUtils.isBlank(storeName)) {
+            return R.error("选择门店后, 门店名称为必须参数");
         }
 
         //1.注册账号 --todo 没有接口
@@ -45,11 +49,7 @@ public class PatientServiceImpl implements PatientService {
         final String userCode = phoneNumber;
         //2. 插入患者信息., 需要传入参数: userCode,phoneNumber,
         // storeCode,storeName,registerTime,registerSourceCode,registerSourceName
-        String storeName = "";
-        if (StringUtils.isNotBlank(storeCode)) {
-            //todo 还没有..获取storename
-            storeName = storeCode;
-        }
+
         Map<String, String> patientInfo = new HashMap<>();
         patientInfo.put("userCode", userCode);
         patientInfo.put("phoneNumber", phoneNumber);
