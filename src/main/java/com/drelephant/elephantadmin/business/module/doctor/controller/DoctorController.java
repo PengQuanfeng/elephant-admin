@@ -5,6 +5,7 @@ import com.drelephant.elephantadmin.business.module.base.BaseController;
 import com.drelephant.elephantadmin.business.module.doctor.service.DoctorService;
 import com.drelephant.elephantadmin.business.module.doctor.util.DUtil;
 import com.drelephant.elephantadmin.business.module.doctor.util.DoctorInfoVo;
+import com.drelephant.elephantadmin.business.module.doctor.util.StoreInfo;
 import com.drelephant.framework.base.common.R;
 import io.swagger.annotations.*;
 import lombok.val;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -103,6 +105,21 @@ public class DoctorController extends BaseController {
             return R.error("有参数为空" + data.toString());
         }
         return doctorService.addDoctor(data);
+    }
+
+
+    /**
+     * listStoreForService
+     *
+     * @param pageName   LINK/UNLINK
+     * @param storeName  storeName
+     * @param doctorCode doctorCode
+     * @return
+     */
+    @ApiOperation("医生服务配置中的模糊查询")
+    @GetMapping("/listStoreForService")
+    public List<StoreInfo> listStoreForService(String pageName, String storeName, String doctorCode) {
+        return doctorService.listStoreForService(pageName, storeName, doctorCode);
     }
 
 }

@@ -2,20 +2,17 @@ package com.drelephant.elephantadmin.business.module.patient.controller;
 
 import com.drelephant.elephantadmin.business.module.patient.service.PatientService;
 import com.drelephant.framework.base.common.R;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 /**
  * @author admin
  */
+@Api(tags = "后台-用户管理")
 @RestController
 @RequestMapping("patient")
 public class PatientController {
@@ -41,5 +38,21 @@ public class PatientController {
         return patientService.regPatientForWeb(data);
     }
 
+    /**
+     * 重置密码.
+     * 需网关check权限.
+     * 此处不再check.
+     *
+     * @param userCode userCode
+     * @return R
+     */
+    @ApiOperation("重置用户或者医生的密码")
+    @GetMapping("/resetUserPassword")
+    public R resetPatientPass(@ApiParam("userCode") String userCode) {
+        if (StringUtils.isBlank(userCode)) {
+            return R.error("userCode is required");
+        }
+        return patientService.resetUserPasswordForAdmin(userCode);
+    }
 
 }

@@ -57,4 +57,14 @@ public interface DoctorInfoClient {
      */
     @PostMapping("/doctorInfo/addDoctorApi")
     R addDoctorApi(@RequestBody Map<String, String> data);
+
+    /**
+     *
+     * @param doctorCode
+     * @param storeName
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/doctorStoreConfig/listForAdminAppByDoctorCodeStoreNameApi")
+    List listForAdminAppByDoctorCodeStoreNameApi(@RequestParam("doctorCode") String doctorCode, @RequestParam("storeName") String storeName, @RequestParam("pageSize") Integer pageSize);
 }

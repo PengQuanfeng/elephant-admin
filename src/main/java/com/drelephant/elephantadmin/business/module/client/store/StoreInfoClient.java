@@ -6,6 +6,8 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 /**
  * @author hyf
  */
@@ -20,4 +22,17 @@ public interface StoreInfoClient {
      */
     @GetMapping("/storeInfo/pageByCodeNotInApi")
     Page<StoreInfo> pageByCodeNotInApi(@RequestParam("codes") String codes, @RequestParam("current") int current, @RequestParam("pageSize") int pageSize);
+
+
+    /**
+     *
+     * @param storeName
+     * @param notInCodesStr
+     * @param pageSize
+     * @param sqlSelect
+     * @return
+     */
+    @GetMapping("/storeInfo/listForAdminAppByStoreNameCodeNotInApi")
+    List<StoreInfo> listForAdminAppByStoreNameCodeNotInApi(@RequestParam("storeName") String storeName,@RequestParam("notInCodesStr") String notInCodesStr,@RequestParam("pageSize") Integer pageSize,@RequestParam("sqlSelect") String sqlSelect);
+
 }

@@ -8,10 +8,12 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @author hyf
@@ -66,4 +68,15 @@ public class PatientServiceImpl implements PatientService {
             return R.error("用户信息插入失败-开发中" + patientApiR.get("msg"));
         }
     }
+
+    @Override
+    public R resetUserPasswordForAdmin(@Nonnull String userCode) {
+        //todo 并没有重置密码的接口
+        boolean isOk = new Random().nextInt(10) > 5;
+        if (isOk) {
+            return R.ok();
+        }
+        return R.error("密码重置失败");
+    }
+
 }

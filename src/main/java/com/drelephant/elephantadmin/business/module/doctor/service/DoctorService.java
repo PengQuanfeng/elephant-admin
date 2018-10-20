@@ -1,9 +1,11 @@
 package com.drelephant.elephantadmin.business.module.doctor.service;
 
 import com.drelephant.elephantadmin.business.module.doctor.util.DoctorInfoVo;
+import com.drelephant.elephantadmin.business.module.doctor.util.StoreInfo;
 import com.drelephant.framework.base.common.R;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +34,15 @@ public interface DoctorService {
      * @return
      */
     R addDoctor(@Nonnull Map<String, String> map);
+
+    /**
+     * @param pageName
+     * @param storeName
+     * @param doctorCode
+     * @return
+     */
+    List<StoreInfo> listStoreForService(String pageName, String storeName, String doctorCode);
+
 
 }
 

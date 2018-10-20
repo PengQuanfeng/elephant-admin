@@ -7,6 +7,7 @@ import com.drelephant.elephantadmin.business.module.client.store.StoreInfoClient
 import com.drelephant.elephantadmin.business.module.doctor.util.DUtil;
 import com.drelephant.elephantadmin.business.module.doctor.util.Dictionary;
 import com.drelephant.elephantadmin.business.module.doctor.util.DoctorInfoVo;
+import com.drelephant.elephantadmin.business.module.doctor.util.StoreInfo;
 import com.drelephant.framework.base.common.R;
 import lombok.val;
 import org.apache.commons.lang.StringUtils;
@@ -16,10 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author hanyf
@@ -99,6 +97,25 @@ public class DoctorServiceImpl implements DoctorService {
             //5 失败的话 ,回滚账号.
             return R.error("医生信息插入失败, 回滚账号系统-开发中");
         }
+    }
+
+    @Override
+    public List<StoreInfo> listStoreForService(String pageName, String storeName, String doctorCode) {
+        if (StringUtils.equals("LINK", pageName)) {
+            //1.首先, 查询出未关联的门店
+            final List<String> unStoreList = doctorInfoClient.listDoctorUnLinkedStoreCode(doctorCode);
+            String unCodes = "";
+            if (!unStoreList.isEmpty()) {
+                unCodes = StringUtils.join(unStoreList, ",");
+            } else {
+                unCodes = "00";
+            }
+            return storeInfoClient.listForAdminAppByStoreNameCodeNotInApi(storeName, unCodes, 100, null);
+        } else if (StringUtils.equals("UNLINK", pageName)) {
+            //链接 doctor返回即可
+        }
+
+        return Collections.emptyList();
     }
 
     /**
