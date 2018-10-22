@@ -25,7 +25,6 @@ public interface StoreInfoClient {
 
 
     /**
-     *
      * @param storeName
      * @param notInCodesStr
      * @param pageSize
@@ -33,6 +32,13 @@ public interface StoreInfoClient {
      * @return
      */
     @GetMapping("/storeInfo/listForAdminAppByStoreNameCodeNotInApi")
-    List<StoreInfo> listForAdminAppByStoreNameCodeNotInApi(@RequestParam("storeName") String storeName,@RequestParam("notInCodesStr") String notInCodesStr,@RequestParam("pageSize") Integer pageSize,@RequestParam("sqlSelect") String sqlSelect);
+    List<StoreInfo> listForAdminAppByStoreNameCodeNotInApi(@RequestParam("storeName") String storeName, @RequestParam("notInCodesStr") String notInCodesStr, @RequestParam("pageSize") Integer pageSize, @RequestParam("sqlSelect") String sqlSelect);
 
+    /**
+     * @param codeStr
+     * @param sqlSelect
+     * @return
+     */
+    @GetMapping("/storeInfo/listByCodeInApi")
+    List<StoreInfo> listByCodeInApi(@RequestParam("codeStr") String codeStr,@RequestParam("sqlSelect") String sqlSelect);
 }

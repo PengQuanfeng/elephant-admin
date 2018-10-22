@@ -1,6 +1,7 @@
 package com.drelephant.elephantadmin.business.module.client.database;
 
 import club.zhcs.common.Result;
+import com.drelephant.elephantadmin.business.module.coupon.util.BdServiceConfig;
 import com.drelephant.elephantadmin.business.module.doctor.util.Dictionary;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.MediaType;
@@ -61,4 +62,12 @@ public interface BdOrgClient {
     @GetMapping("/bdDictValue/mapCodeNameByCodesApi")
     Map<String, String> mapCodeNameByCodesApi(@RequestParam("codeStr") String codeStr);
 
+    /**
+     * 查询二级服务列表
+     * where serviceCode in codeStr
+     * @param codeStr
+     * @return
+     */
+    @GetMapping("/bdServiceConfig/listByCodes2InStrApi")
+    public List<BdServiceConfig> listByCodes2InStrApi(@RequestParam("codeStr") String codeStr);
 }
