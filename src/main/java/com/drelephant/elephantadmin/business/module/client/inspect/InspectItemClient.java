@@ -4,6 +4,7 @@ import com.drelephant.elephantadmin.business.module.store.dto.response.InspectIt
 import com.drelephant.elephantadmin.business.module.util.Result;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
@@ -15,8 +16,9 @@ import java.util.List;
 public interface InspectItemClient {
     /**
      * 获取所有的科室以及组套
+     * @param categoryCode 类型
      * @return
      */
-    @GetMapping("inspectItem/getAllItemAndDept")
-    Result<List<InspectItemAndDeptListResponse>> getAllItemAndDept();
+    @GetMapping("inspectItem/getAllItemAndDeptByCategoryCode")
+    Result<List<InspectItemAndDeptListResponse>> getAllItemAndDeptByCategoryCode(@RequestParam("categoryCode") String categoryCode);
 }
