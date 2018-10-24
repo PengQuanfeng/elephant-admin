@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @description
  */
 @RestController
-@Api("门店")
+@Api(tags = "门店")
 @RequestMapping("store")
 public class StoreController {
 
